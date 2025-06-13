@@ -1,4 +1,3 @@
-
 # Introdução a React
 
 ## O que é React?
@@ -130,6 +129,33 @@
   <button onClick={handleClick}>Clique aqui</button>
   ```
 - `onClick` dispara a função `handleClick` ao clicar no botão.
+
+### Funções nos eventos
+
+- Quando temos lógicas complexas, é mais indicado criar uma função para o evento;
+- Isso vai separar as responsabilidades, e deixar o código mais fácil de dar manutenção;
+
+### Funções de renderização
+
+- Podemos criar funções nos componentes que retornam TSX;
+- Isso pode ser utilizado para uma renderização condicional, por exemplo;
+- Fazendo com que o TSX varie dependendo do resultado da operação;
+
+---
+
+## React Avançando
+
+### Imagens no React
+
+- As imagens do projeto podem ficar na pasta `public`;
+- Estando lá, elas podem ser utilizadas diretamente no projeto;
+- A pasta `public` fica linkada com a `src`, exemplo: `"/imagem.png"`
+
+### Imagens em assets
+
+- Outro local comum de colocar as imagens em um projeto em React é na pasta `assets`;
+- Em `assets` precisamos importar a imagem, como se fosse um componente;
+- Estas duas abordagens são muito utilizadas;
 
 ---
 

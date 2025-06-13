@@ -1,0 +1,14 @@
+//Template expression
+
+const TemplateExpression = () => {
+  const name = "Aluno"
+  return (
+    <div>
+        <h1>TemplateExpression</h1>
+        <p>A soma é { 2 + 2} </p>  
+        <h2>Bem vindo {name} </h2>  
+    </div>
+  )
+}
+
+export default TemplateExpression
