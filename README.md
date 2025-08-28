@@ -202,6 +202,47 @@ const styles = StyleSheet.create({
 });
 ```
 
+
+### Flexbox e alinhamentos
+
+No React Native, **Flexbox** é o padrão de layout. Conceitos-chave:
+
+- `flex`: define quanto espaço o componente ocupa em relação aos irmãos.
+- `flexDirection`: eixo principal do container — `'column'` (padrão) ou `'row'`.
+- `justifyContent` (**eixo principal**): `'flex-start'`, `'center'`, `'flex-end'`, `'space-between'`, `'space-around'` (e `'space-evenly'` em versões mais novas).
+- `alignItems` (**eixo transversal**): `'flex-start'`, `'center'`, `'flex-end'`, `'stretch'` (e `'baseline'` em alguns casos).
+- `alignContent`: quando usar `flexWrap: 'wrap'`, controla o espaçamento entre linhas: `'flex-start'`, `'center'`, `'flex-end'`, `'space-between'`, `'space-around'`, `'space-evenly'`, `'stretch'`.
+
+**Exemplo (classe):**
+```tsx
+import React from "react";
+import { View, StyleSheet } from "react-native";
+
+export class FlexboxDemo extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",            // eixo principal na horizontal
+    justifyContent: "space-between", // distribui ao longo do eixo principal
+    alignItems: "center",            // alinha no eixo transversal
+    padding: 16,
+  },
+  box: { width: 60, height: 60, backgroundColor: "#ddd", borderRadius: 8 },
+});
+```
+
+
 ### Grupos de estilo
 Agrupe estilos reutilizáveis para reduzir código e aumentar produtividade.
 
@@ -240,6 +281,64 @@ export class ResponsiveImage extends React.Component {
 ```
 
 ---
+
+
+## Recebendo dados
+
+### Via *props* (entre componentes)
+Use *props* para passar dados do componente pai para o filho. Exemplo (classe):
+```tsx
+import React from "react";
+import { Text } from "react-native";
+
+type GreetingProps = { name: string; size?: number };
+
+export class Greeting extends React.Component<GreetingProps> {
+  static defaultProps = { size: 18 };
+  render() {
+    const { name, size } = this.props;
+    return <Text style={{ fontSize: size }}>Olá, {name}!</Text>;
+  }
+}
+```
+
+### De uma API (requisição assíncrona)
+Em classes, faça a busca em `componentDidMount` e atualize o `state`:
+```tsx
+import React from "react";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
+
+type Post = { id: number; title: string };
+type State = { posts: Post[]; loading: boolean; error?: string };
+
+export class PostsList extends React.Component<{}, State> {
+  state: State = { posts: [], loading: true };
+
+  async componentDidMount() {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=10");
+      const data = (await res.json()) as Post[];
+      this.setState({ posts: data, loading: false });
+    } catch (e) {
+      this.setState({ error: "Falha ao carregar dados.", loading: false });
+    }
+  }
+
+  render() {
+    if (this.state.loading) return <ActivityIndicator />;
+    if (this.state.error) return <Text>{this.state.error}</Text>;
+
+    return (
+      <FlatList
+        data={this.state.posts}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <Text>{item.title}</Text>}
+      />
+    );
+  }
+}
+```
+
 
 ## Acesso a recursos nativos
 
