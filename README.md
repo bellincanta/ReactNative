@@ -1,3 +1,41 @@
+# React Native — Criando App com Expo
+
+## Criar um novo projeto
+
+```bash
+npx create-expo-app@latest meuApp -t
+# ou
+npx create-expo-app nomeapp -t
+```
+> No lugar de `nomeapp`/`meuApp`, use o nome do seu aplicativo.
+
+### Escolher o template
+Quando a CLI listar os templates, **selecione `Blank`**:
+
+```
+  Default - includes tools recommended for most app developers
+>> Blank
+   Blank (TypeScript)
+   Navigation (TypeScript)
+   Blank (Bare)
+```
+
+## Rodar o projeto
+
+Acesse a pasta criada no terminal e execute:
+
+```bash
+npx expo start
+```
+
+### Pacotes úteis (web/runtime)
+Para projetos que também rodam no navegador, instale:
+
+```bash
+npx expo install react-dom react-native-web @expo/metro-runtime
+```
+
+
 # Entendendo React Native
 
 React Native é um framework criado por engenheiros do Facebook que permite construir **aplicativos móveis nativos** para **iOS** e **Android** usando **JavaScript/TypeScript** e conceitos do **React**. Com ele, você aproveita o ecossistema web (ES6+, NPM, JSX, Flexbox) e, ao mesmo tempo, acessa APIs nativas com excelente desempenho.
