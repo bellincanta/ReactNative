@@ -5,7 +5,7 @@ React Native é um framework criado por engenheiros do Facebook que permite cons
 ## Por que usar React Native?
 
 - **Código único, apps nativos**: compartilhe a maior parte do código entre Android e iOS.
-- **Produtividade**: Hot Reload/ Fast Refresh, NPM/Yarn e vasta comunidade de pacotes.
+- **Produtividade**: Fast Refresh, NPM/Yarn e vasta comunidade de pacotes.
 - **Tecnologias modernas**: ES6+ (ECMAScript 2015+), JSX, Flexbox, TypeScript (opcional).
 - **Depuração integrada**: suporte a Flipper, React DevTools e breakpoints na IDE.
 - **Desempenho**: acesso a câmera, geolocalização e outros recursos nativos com fluidez (alvo de 60fps em interfaces bem projetadas).
@@ -29,19 +29,21 @@ Geralmente, você encontrará arquivos como:
 - `src/screens/*`: telas do app.
 - `src/styles/*`: estilos e temas.
 
-**Exemplo mínimo (`App.tsx`)**:
+**Exemplo mínimo (`App.tsx`) usando **classe**:**
 
 ```tsx
 import React from "react";
 import { SafeAreaView, Text, StyleSheet } from "react-native";
 
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Olá, React Native!</Text>
-      <Text>Construindo apps nativos com JavaScript/TypeScript.</Text>
-    </SafeAreaView>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Olá, React Native!</Text>
+        <Text>Construindo apps nativos com JavaScript/TypeScript.</Text>
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -52,9 +54,9 @@ const styles = StyleSheet.create({
 
 ---
 
-## JSX (dentro do `return`)
+## JSX (dentro do `render`)
 
-JSX é a sintaxe que permite escrever UI de forma declarativa dentro do `return()` dos componentes — parece HTML, mas é JavaScript. O Babel compila JSX para chamadas `React.createElement`.
+JSX é a sintaxe que permite escrever UI de forma declarativa dentro do método `render()` — parece HTML, mas é JavaScript. O Babel compila JSX para chamadas `React.createElement`.
 
 ---
 
@@ -64,49 +66,61 @@ JSX é a sintaxe que permite escrever UI de forma declarativa dentro do `return(
 - São **somente leitura** (imutáveis no componente filho).
 - Passam dados de um componente pai para outro.
 
-**Exemplo com TypeScript:**
+**Exemplo com TypeScript (classe):**
 ```tsx
 import React from "react";
 import { Text } from "react-native";
 
 type HelloProps = { name: string; size?: number };
 
-export function Hello({ name, size = 18 }: HelloProps) {
-  return <Text style={{ fontSize: size }}>Olá, {name}!</Text>;
+export class Hello extends React.Component<HelloProps> {
+  static defaultProps = { size: 18 };
+  render() {
+    const { name, size } = this.props;
+    return <Text style={{ fontSize: size }}>Olá, {name}!</Text>;
+  }
 }
 ```
 
 > **Dica (TS + classes)**  
-> Se você estender `React.Component` **sem** informar os tipos, o React assume `Readonly<{}>` para `props`. Tipar evita erros:  
+> Tipar evita erros como `Readonly<{}>` em `props`:  
 > `class MyComp extends React.Component<MyProps, MyState> { ... }`
 
 ### State (estado)
 - É **mutável** e representa dados que mudam ao longo do tempo.
 
-**Com Hooks (abordagem moderna):**
+**Exemplo com classe:**
 ```tsx
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Button } from "react-native";
 
-export function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <View>
-      <Text>Contador: {count}</Text>
-      <Button title="Somar" onPress={() => setCount((c) => c + 1)} />
-    </View>
-  );
+type CounterState = { count: number };
+
+export class Counter extends React.Component<{}, CounterState> {
+  state: CounterState = { count: 0 };
+
+  render() {
+    return (
+      <View>
+        <Text>Contador: {this.state.count}</Text>
+        <Button
+          title="Somar"
+          onPress={() => this.setState(({ count }) => ({ count: count + 1 }))}
+        />
+      </View>
+    );
+  }
 }
 ```
 
-**Com classe (para referência):**
+**Classe simples com estado:**
 ```tsx
 import React from "react";
 import { Text } from "react-native";
 
 type State = { nome: string };
 
-class MinhaClasse extends React.Component<unknown, State> {
+export class MinhaClasse extends React.Component<unknown, State> {
   constructor(props: unknown) {
     super(props);
     this.state = { nome: "TADS" };
@@ -124,16 +138,19 @@ class MinhaClasse extends React.Component<unknown, State> {
 Use `StyleSheet` e **Flexbox** para layout.
 
 ```tsx
+import React from "react";
 import { View, StyleSheet } from "react-native";
 
-export function Row() {
-  return (
-    <View style={styles.row}>
-      <View style={styles.box} />
-      <View style={styles.box} />
-      <View style={styles.box} />
-    </View>
-  );
+export class Row extends React.Component {
+  render() {
+    return (
+      <View style={styles.row}>
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -151,7 +168,9 @@ const styles = StyleSheet.create({
 Agrupe estilos reutilizáveis para reduzir código e aumentar produtividade.
 
 ```tsx
-const palette = StyleSheet.create({
+import { StyleSheet } from "react-native";
+
+export const palette = StyleSheet.create({
   card: { backgroundColor: "#fff", borderRadius: 12, padding: 16, elevation: 2 },
   title: { fontSize: 20, fontWeight: "600" },
   subtitle: { fontSize: 14, opacity: 0.7 },
@@ -166,13 +185,20 @@ const palette = StyleSheet.create({
 - **Dinâmicos**: preferidos para telas variadas; use `flex`, `%` e `Dimensions`.
 
 ```tsx
+import React from "react";
 import { Image, Dimensions } from "react-native";
-const { width } = Dimensions.get("window");
 
-<Image
-  source={{ uri: "https://picsum.photos/800" }}
-  style={{ width, height: width * 0.6 }}
-/>;
+export class ResponsiveImage extends React.Component {
+  render() {
+    const { width } = Dimensions.get("window");
+    return (
+      <Image
+        source={{ uri: "https://picsum.photos/800" }}
+        style={{ width, height: width * 0.6 }}
+      />
+    );
+  }
+}
 ```
 
 ---
@@ -193,7 +219,7 @@ Isso é feito via APIs do RN, bibliotecas da comunidade ou **Native Modules**/**
 
 - Prefira **`FlatList`** e **`SectionList`** (virtualização) a mapear arrays diretamente.
 - Evite trabalho pesado na thread de UI; mova computação para **JS thread** ou nativo.
-- Memorize componentes (`React.memo`), seletores e callbacks (`useMemo`, `useCallback`) quando fizer sentido.
+- Memorize componentes (`React.PureComponent`) quando fizer sentido.
 - Imagens: use tamanhos adequados e cache quando possível.
 
 ---
@@ -201,7 +227,7 @@ Isso é feito via APIs do RN, bibliotecas da comunidade ou **Native Modules**/**
 ## Depuração
 
 - **Flipper**: logs, layout inspector, network, performance.  
-- **React DevTools**: inspeciona árvore de componentes e hooks.  
+- **React DevTools**: inspeciona árvore de componentes.  
 - **Breakpoints**: configure na IDE/editor; `console.log` continua válido :)
 
 ---
@@ -216,4 +242,4 @@ Isso é feito via APIs do RN, bibliotecas da comunidade ou **Native Modules**/**
 
 ## Resumo
 
-Com React Native, você desenvolve **apps nativos** para Android e iOS usando a produtividade do ecossistema web, sem abrir mão de **desempenho** e **acesso a APIs nativas**. Dominar **componentes**, **props**, **state**, **JSX**, **estilos** e **Flexbox** é o passo essencial para criar interfaces modernas, responsivas e manuteníveis.
+Com React Native, você desenvolve **apps nativos** para Android e iOS usando a produtividade do ecossistema web, sem abrir mão de **desempenho** e **acesso a APIs nativas**. Dominar **componentes (classes)**, **props**, **state**, **JSX**, **estilos** e **Flexbox** é o passo essencial para criar interfaces modernas, responsivas e manuteníveis.
