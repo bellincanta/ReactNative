@@ -10,14 +10,14 @@ npx create-expo-app nomeapp -t
 > No lugar de `nomeapp`/`meuApp`, use o nome do seu aplicativo.
 
 ### Escolher o template
-Quando a CLI listar os templates, **selecione `Blank`**:
+Quando a CLI listar os templates, **selecione `Blank (TypeScript)`**:
 
 ```
   Default - includes tools recommended for most app developers
->> Blank
-   Blank (TypeScript)
-   Navigation (TypeScript)
-   Blank (Bare)
+  Blank
+>>Blank (TypeScript)
+  Navigation (TypeScript)
+  Blank (Bare)
 ```
 
 ## Rodar o projeto
