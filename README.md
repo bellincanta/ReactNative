@@ -380,3 +380,118 @@ Isso é feito via APIs do RN, bibliotecas da comunidade ou **Native Modules**/**
 ## Resumo
 
 Com React Native, você desenvolve **apps nativos** para Android e iOS usando a produtividade do ecossistema web, sem abrir mão de **desempenho** e **acesso a APIs nativas**. Dominar **componentes (classes)**, **props**, **state**, **JSX**, **estilos** e **Flexbox** é o passo essencial para criar interfaces modernas, responsivas e manuteníveis.
+
+---
+
+# Componentes Fundamentais no React Native
+
+## ScrollView 
+
+O ScrollView é um componente que permite rolagem (scroll) do conteúdo na tela, tanto na vertical quanto na horizontal.
+
+Ele renderiza todos os elementos filhos de uma vez, mesmo que não estejam visíveis.
+
+É ideal para conteúdos pequenos ou de tamanho previsível, como formulários, textos longos ou imagens em sequência.
+
+**Principais características:**
+
+- `horizontal` → define se a rolagem será horizontal.  
+- `showsVerticalScrollIndicator` / `showsHorizontalScrollIndicator` → exibem ou ocultam a barra de rolagem.  
+- `contentContainerStyle` → aplica estilos ao conteúdo interno.  
+
+👉 **Exemplo prático**: um formulário grande que precisa ser rolado para acessar todos os campos.
+
+---
+
+## FlatList
+
+A FlatList é um componente otimizado para exibir listas grandes de dados.
+
+Diferente do ScrollView, ela não renderiza todos os itens de uma vez, apenas os que estão visíveis na tela e alguns próximos (renderização sob demanda).
+
+Isso melhora a performance em listas longas.
+
+**Principais propriedades:**
+
+- `data` → a lista de dados que será exibida.  
+- `renderItem` → função que define como cada item da lista será exibido.  
+- `keyExtractor` → função que retorna a chave única para cada item (melhora performance).  
+- `numColumns` → permite exibir itens em múltiplas colunas (como um grid).  
+
+👉 **Exemplo prático**: lista de contatos, catálogo de produtos, feed de notícias.
+
+---
+
+## Picker
+
+### O que é?
+
+O Picker é um componente de interface gráfica que permite ao usuário escolher um valor entre várias opções disponíveis em uma lista.
+
+Ele funciona como um menu suspenso (dropdown) ou uma caixa de seleção.
+
+É ideal quando queremos que o usuário selecione apenas uma opção entre várias alternativas pré-definidas.
+
+### 🔹 Quando usar?
+
+O Picker é útil em situações como:
+
+- Selecionar uma cidade ou estado em um formulário.  
+- Escolher um mês ou ano.  
+- Definir uma categoria para um item (ex.: roupas, eletrônicos, alimentos).  
+
+**Principais propriedades:**
+
+- `selectedValue` → valor atualmente selecionado.  
+- `onValueChange` → função chamada quando o usuário escolhe uma nova opção.  
+- `style` → permite personalizar a aparência.  
+- `enabled` → permite habilitar ou desabilitar o Picker.  
+
+Cada opção dentro do Picker é representada por um `Picker.Item`, que possui:
+
+- `label` → o texto exibido para o usuário.  
+- `value` → o valor real armazenado no estado da aplicação.  
+
+👉 **Exemplo prático**: Imagine um formulário de cadastro em que o usuário precisa selecionar seu estado:  
+O Picker exibe uma lista com todos os estados. O aluno seleciona “Paraná”. Internamente, o valor armazenado pode ser `"PR"`.
+
+---
+
+## Slider
+
+O Slider é um componente de interface gráfica que permite ao usuário selecionar um valor contínuo ou discreto dentro de um intervalo.
+
+Ele é representado por uma barra horizontal (ou vertical, em alguns casos) com um controle deslizante (thumb) que pode ser arrastado.
+
+É útil quando precisamos de um ajuste gradual de valores, como volume, brilho da tela, zoom ou qualquer configuração que varie em uma escala.
+
+**Principais propriedades:**
+
+- `minimumValue` e `maximumValue` → definem o intervalo de valores (ex.: 0 a 100).  
+- `step` → controla o incremento (ex.: de 1 em 1, de 0.5 em 0.5).  
+- `value` → valor inicial ou atual do Slider.  
+- `onValueChange` → função chamada sempre que o usuário move o controle.  
+- `onSlidingComplete` → função chamada quando o usuário solta o controle (fim do arraste).  
+
+👉 **Exemplo prático**: controle de volume em um player de música.
+
+---
+
+## Switch
+
+O Switch é um componente de interface gráfica que representa uma chave liga/desliga (toggle).
+
+Ele funciona como um botão binário, permitindo apenas dois estados: ligado (`true`) ou desligado (`false`).
+
+É útil para representar preferências ou configurações booleanas, como ativar/desativar notificações, modo escuro, Wi-Fi, Bluetooth, etc.
+
+**Principais propriedades:**
+
+- `value` → indica se o Switch está ligado (`true`) ou desligado (`false`).  
+- `onValueChange` → função chamada sempre que o usuário alterna o estado.  
+- `trackColor` → cor da “trilha” (fundo do botão).  
+- `thumbColor` → cor do “botão” móvel (thumb).  
+- `disabled` → desabilita a interação com o Switch.  
+
+👉 **Exemplo prático**: ativar ou desativar o modo escuro de um aplicativo.
+

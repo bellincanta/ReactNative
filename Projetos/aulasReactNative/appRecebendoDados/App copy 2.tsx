@@ -41,12 +41,8 @@ class App extends Component<AppProps, AppState> {
   }
 
   entrar(){
-    if (this.state.input.trim() === '') {
-    this.setState({nome: 'Bem vindo ' + this.state.input});
-    return;
+this.setState({nome: 'Bem vindo ' + this.state.input});
   }
-  this.setState({nome: 'Bem vindo ' + this.state.input});
-  }  
 
   render() {
     return (
