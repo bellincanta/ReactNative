@@ -340,44 +340,60 @@ export class PostsList extends React.Component<{}, State> {
 ```
 
 
-## Acesso a recursos nativos
 
-Você pode usar:
-- **Câmera**  
-- **Geolocalização**  
-- **Sensores** (acelerômetro, giroscópio)  
-- **Armazenamento**, **Notificações**, **Bluetooth**, etc.
+## Integração com recursos nativos
 
-Isso é feito via APIs do RN, bibliotecas da comunidade ou **Native Modules**/**Turbo Modules** quando necessário.
+Aplicativos React Native podem acessar funcionalidades do dispositivo de forma simples, utilizando **APIs do próprio framework**, bibliotecas da comunidade ou módulos nativos (**Native Modules** e **Turbo Modules**). Entre os recursos mais comuns estão:
 
----
+- **Câmera** e galeria de imagens  
+- **Geolocalização** e mapas  
+- **Sensores** (como acelerômetro e giroscópio)  
+- **Armazenamento local**  
+- **Notificações push**  
+- **Conectividade** (Bluetooth, Wi-Fi, etc.)  
 
-## Desempenho na prática
-
-- Prefira **`FlatList`** e **`SectionList`** (virtualização) a mapear arrays diretamente.
-- Evite trabalho pesado na thread de UI; mova computação para **JS thread** ou nativo.
-- Memorize componentes (`React.PureComponent`) quando fizer sentido.
-- Imagens: use tamanhos adequados e cache quando possível.
+Essa integração permite criar apps mais completos e próximos da experiência nativa, sem abrir mão da produtividade do ecossistema React.
 
 ---
 
-## Depuração
+## Boas práticas de desempenho
 
-- **Flipper**: logs, layout inspector, network, performance.  
-- **React DevTools**: inspeciona árvore de componentes.  
-- **Breakpoints**: configure na IDE/editor; `console.log` continua válido :)
+Para garantir interfaces fluidas, algumas recomendações práticas são:
+
+- Prefira listas otimizadas (**`FlatList`** e **`SectionList`**) em vez de mapear arrays diretamente.  
+- Evite processamento pesado na **thread de UI**; sempre que possível, mova cálculos para a thread JS ou para código nativo.  
+- Utilize componentes otimizados, como `React.PureComponent`, para evitar renderizações desnecessárias.  
+- Trate imagens com cuidado: defina tamanhos adequados e explore técnicas de cache.  
 
 ---
 
-## Referências úteis
+## Ferramentas de depuração
+
+O React Native oferece um bom ecossistema de ferramentas para inspecionar e depurar aplicativos:
+
+- **Flipper**: monitoramento de logs, layout inspector, rede e desempenho.  
+- **React DevTools**: análise da árvore de componentes.  
+- **Breakpoints**: configuração na IDE/editor.  
+- O clássico `console.log` continua sendo útil em muitos casos.  
+
+---
+
+## Referências recomendadas
 
 - Documentação oficial: https://reactnative.dev  
 - Guia de Estilo e Flexbox: https://reactnative.dev/docs/flexbox  
-- TypeScript no RN: https://reactnative.dev/docs/typescript
+- Uso de TypeScript no RN: https://reactnative.dev/docs/typescript  
 
 ---
 
-## Resumo
+## Conclusão
+
+O React Native combina a produtividade do ecossistema web com acesso a **APIs e recursos nativos**, possibilitando o desenvolvimento de aplicativos robustos para Android e iOS. Ao dominar componentes, props, state, JSX, estilos e boas práticas de desempenho, você estará apto a criar **interfaces modernas, responsivas e escaláveis**.
+
+---
+
+
+## Conclusão
 
 Com React Native, você desenvolve **apps nativos** para Android e iOS usando a produtividade do ecossistema web, sem abrir mão de **desempenho** e **acesso a APIs nativas**. Dominar **componentes (classes)**, **props**, **state**, **JSX**, **estilos** e **Flexbox** é o passo essencial para criar interfaces modernas, responsivas e manuteníveis.
 
