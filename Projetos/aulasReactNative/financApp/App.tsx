@@ -10,7 +10,7 @@ export default class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <NavigationContainer>
-        <StatusBar backgroundColor="#F04FF" barStyle={'dark-content'}translucent />
+        <StatusBar backgroundColor="#F0F4FF" barStyle="dark-content" translucent />
         <Routes />
       </NavigationContainer>
     );
