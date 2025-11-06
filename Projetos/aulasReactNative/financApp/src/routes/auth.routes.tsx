@@ -20,7 +20,17 @@ export default class AuthRoutes extends React.Component {
           options={{ headerShown: false }} />
         <AuthStack.Screen 
           name="SignUp" 
-          component={SignUp} />
+          component={SignUp}
+          options={{
+            headerStyle: { 
+              backgroundColor: '#3b3dbf',
+              borderBottomWidth: 1,
+              borderBottomColor: '#ccc'
+            },
+            headerTintColor: '#fff',
+            headerTitle: 'Voltar',
+            //headerBackTitleVisible: false,
+          }} />
       </AuthStack.Navigator>
     );
   }
