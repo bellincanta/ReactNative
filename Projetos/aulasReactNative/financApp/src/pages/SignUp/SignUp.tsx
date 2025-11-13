@@ -10,42 +10,46 @@ import {
   SubmitText
  } from '../SignIn/styles';
 
-type SignUpProps = Record<string, never>;
-type SignUpState = Record<string, never>;
+import { useAuth } from '../../contexts/auth'; // Importa o hook personalizado
 
-export default class SignUp extends React.Component<SignUpProps, SignUpState> {
-  render() {
-    return (
-      <Background>
-        <Container>
-          <AreaInput>
-            <Input
-              placeholder="Nome"
-            />
-          </AreaInput>
-     
-          <AreaInput>
-            <Input
-               placeholder="Seu email"
-            />
-          </AreaInput>
+export default function SignUp() {
+  const { user } = useAuth(); // Usa o hook personalizado
 
-          <AreaInput>
-            <Input
-               placeholder="Sua senha"
-            />
-          </AreaInput>
-          <AreaInput>
-            <Input
-               placeholder="Confirmação de senha"
-            />
-          </AreaInput>
-          <SubmitButton activeOpacity={0.8} onPress={() => { /* TODO: autenticar */ }}>
-            <SubmitText>Cadastrar</SubmitText>
-          </SubmitButton>
-                         </Container>
-             </Background>
-    );
+  function handleSignUp() {
+    // Lógica para lidar com o cadastro do usuário
+    //alert('Teste');
+    console.log('Usuário cadastrado com sucesso!');
   }
-}
 
+  return (
+    <Background>
+      <Container>
+        <AreaInput>
+          <Input
+            placeholder="Nome"
+          />
+        </AreaInput>
+   
+        <AreaInput>
+          <Input
+             placeholder="Seu email"
+          />
+        </AreaInput>
+
+        <AreaInput>
+          <Input
+             placeholder="Sua senha"
+          />
+        </AreaInput>
+        <AreaInput>
+          <Input
+             placeholder="Confirmação de senha"
+          />
+        </AreaInput>
+        <SubmitButton activeOpacity={0.8} onPress={handleSignUp}>
+          <SubmitText>Cadastrar</SubmitText>
+        </SubmitButton>
+      </Container>
+    </Background>
+  );
+}
